@@ -1,0 +1,16 @@
+/* Font Stacks */
+$serif-stack: 'Roboto Slab', serif;
+$sans-serif-stack: 'Montserrat', sans-serif;
+
+/* Base Measurements */
+$base-font-size: 1em;
+$base-line-height: 1.5;
+$base-spacing: 1em;
+
+/* Colors */
+$base-gray: #777;
+$dark-gray: darken($base-gray, 25%);
+$light-gray: lighten($base-gray, 25%);
+
+$base-blue: #1da1db;
+$dark-blue: #0f434c;
