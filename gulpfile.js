@@ -27,12 +27,18 @@ gulp.task('js', ['clean:js'], function() {
 	//using build task below to bundle files
 });
 
-gulp.task('ejs', function() {
+gulp.task('html', function() {
 	//task not needed due to using React commponents
 });
 
-gulp.task('html', function() {
-	//task not needed due to using React commponents
+gulp.task('ejs', function() {
+	return gulp.src("./src/views/pages/*.ejs")
+			.pipe(ejs({},
+			{
+				ext: '.html' //compile into html 
+			}
+			)).on('error', gutil.log)
+			.pipe(gulp.dest("./build"));
 });
 
 gulp.task('sass', function() {
@@ -61,8 +67,11 @@ gulp.task('serve', function() {
 });
 
 // The default task (called when we run `gulp` from cli)
-gulp.task('default', ['build', 'sass', 'serve'], function() { 
+gulp.task('default', ['ejs', 'build', 'sass', 'serve'], function() { 
 
+	//move the data file to the build directory
+	gulp.src("./src/js/data/data.json")
+	.pipe(gulp.dest('./build/js/data'))
 	//watch files and perform propper actions
 	gulp.watch("./src/scss/*.scss", ['sass']);
 	gulp.watch("./src/js/**/*.jsx", ['build']);

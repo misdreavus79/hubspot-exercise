@@ -1,11 +1,33 @@
 import React from "react";
+import $ from "jquery";
 
 class FilterableContent extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			listings: this.props.data
+			listings: "Loading..."
 		};
+	}
+	getMedia(){ 
+		$.ajax({
+			url: this.props.url,
+			dataType: 'json',
+			success: (data) => {
+				this.setState({
+					listings: data.media
+				});
+				this.generateDynamicComponents();
+			},
+			error: (xhr, status, err) => {
+	        	console.error(this.props.url, status, err.toString());
+	        }
+		});
+	}
+	componentWillMount(){
+		this.getMedia();
+	}
+	generateDynamicComponents(){
+		
 	}
 	filterByMediaType(){
 
@@ -26,9 +48,9 @@ class FilterableContent extends React.Component {
 									<span>Genre</span>
 									<div>
 									{
-										this.state.listings.map((single) => {	
-											return <Year year={single.genre} key={single.title} /> 
-										});
+										// this.state.listings.map((single) => {	
+										// 	return <Year year={single.genre} key={single.title} /> 
+										// })
 									}
 									</div>
 								</div>
@@ -36,24 +58,23 @@ class FilterableContent extends React.Component {
 									<span>Year</span>
 									<div>
 									{
-										let uniqueYears = (this.state.listings)
-										this.state.listings.map((single) => {	
-											return <Year year={single.year} key={single.title} /> 
-										});
+										// this.state.listings.map((single) => {	
+										// 	return <Year year={single.year} key={single.title} /> 
+										// })
 									}
 									</div>
 								</div>
 								<div className="search">
-									<input type="text">
+									<input type="text" />
 								</div>
 							</div>
 							<div className="filters group">
 								<div className="radio">
-									<input type="radio" name="choice" value="movies" onClick={this.filterByMediaType.bind(this)}>
+									<input type="radio" name="choice" value="movies" onClick={this.filterByMediaType.bind(this)} />
 									<label>Movies</label>
 								</div>
 								<div className="radio">
-									<input type="radio" name="choice" value="books" onClick={this.filterByMediaType.bind(this)}>
+									<input type="radio" name="choice" value="books" onClick={this.filterByMediaType.bind(this)} />
 									<label>Books</label>
 								</div>
 								<div className="clear">
@@ -68,9 +89,9 @@ class FilterableContent extends React.Component {
 						<div>
 							<ul>
 							{
-								this.state.listings.map((single) = {
-									return <Listing data={single} key={single.title} />
-								});
+								// this.state.listings.map((single) => {
+								// 	return <Listing data={single} key={single.title} />
+								// })
 							}
 							</ul>
 						</div>
@@ -80,3 +101,5 @@ class FilterableContent extends React.Component {
 		)
 	}
 }
+
+export default FilterableContent;
