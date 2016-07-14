@@ -1,40 +1,55 @@
 import React from "react";
-import $ from "jquery";
+import Listing from "./Listing";
 
 class FilterableContent extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			listings: "Loading..."
+			listings: this.props.listings,
+			genres: this.props.genres,
+			years: this.props.years,
+			search: ''
 		};
 	}
-	getMedia(){ 
-		$.ajax({
-			url: this.props.url,
-			dataType: 'json',
-			success: (data) => {
-				this.setState({
-					listings: data.media
-				});
-				this.generateDynamicComponents();
-			},
-			error: (xhr, status, err) => {
-	        	console.error(this.props.url, status, err.toString());
-	        }
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			listings: nextProps.listings,
+			genres: nextProps.genres,
+			years: nextProps.years,	
 		});
 	}
-	componentWillMount(){
-		this.getMedia();
+	filterByGenre(event){
+		let filtered = this.props.listings.filter(
+		    (single) => {
+				return single.genre.includes(event.target.value);
+			}
+		);
+		this.setState({
+			listings: filtered
+		});
 	}
-	generateDynamicComponents(){
-		
+	filterByMediaType(event){
+		let filtered = this.props.listings.filter(
+		    (single) => {
+				return single.type.includes(event.target.value);
+			}
+		);
+		this.setState({
+			listings: filtered
+		});
 	}
-	filterByMediaType(){
-
+	filterBySearch(event){
+		let filtered = this.props.listings.map((single) => {
+			return single.title.includes(event.target.value);
+		});
+		this.setState({
+			search: event.target.value,
+			listings: filtered
+		});
 	}
 	clearFilters(){
 		this.setState({
-			listings: this.props.data
+			listings: this.props.listings
 		});
 	}
 	render(){
@@ -48,9 +63,9 @@ class FilterableContent extends React.Component {
 									<span>Genre</span>
 									<div>
 									{
-										// this.state.listings.map((single) => {	
-										// 	return <Year year={single.genre} key={single.title} /> 
-										// })
+										this.state.genres.map((single) => {	
+											return <label key={single}><input type="checkbox" name="genre" value={single} onClick={this.filterByGenre.bind(this)} /> {single}</label>
+										})
 									}
 									</div>
 								</div>
@@ -58,23 +73,23 @@ class FilterableContent extends React.Component {
 									<span>Year</span>
 									<div>
 									{
-										// this.state.listings.map((single) => {	
-										// 	return <Year year={single.year} key={single.title} /> 
-										// })
+										this.state.years.map((single) => {	
+											return <label key={single}><input type="checkbox" name="genre" value={single} /> {single}</label>
+										})
 									}
 									</div>
 								</div>
 								<div className="search">
-									<input type="text" />
+									<input type="text" value={this.state.search} onChange={this.filterBySearch.bind(this)} />
 								</div>
 							</div>
 							<div className="filters group">
 								<div className="radio">
-									<input type="radio" name="choice" value="movies" onClick={this.filterByMediaType.bind(this)} />
+									<input type="radio" name="choice" value="movie" onClick={this.filterByMediaType.bind(this)} />
 									<label>Movies</label>
 								</div>
 								<div className="radio">
-									<input type="radio" name="choice" value="books" onClick={this.filterByMediaType.bind(this)} />
+									<input type="radio" name="choice" value="book" onClick={this.filterByMediaType.bind(this)} />
 									<label>Books</label>
 								</div>
 								<div className="clear">
@@ -89,9 +104,9 @@ class FilterableContent extends React.Component {
 						<div>
 							<ul>
 							{
-								// this.state.listings.map((single) => {
-								// 	return <Listing data={single} key={single.title} />
-								// })
+								this.state.listings.map((single) => {
+									return <Listing item={single} key={single.title} />
+								})
 							}
 							</ul>
 						</div>
