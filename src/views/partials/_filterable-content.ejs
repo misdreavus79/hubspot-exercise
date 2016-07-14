@@ -17,11 +17,11 @@
 				</div>
 				<div class="filters group">
 					<div>
-						<input type="radio" name="choice" onclick="<% filter(this.value) %>" value="movies">
+						<input type="radio" name="choice" value="movies">
 						<label>Movies</label>
 					</div>
 					<div>
-						<input type="radio" name="choice" onclick="<% filter(this.value) %>" value="books">
+						<input type="radio" name="choice" value="books">
 						<label>Books</label>
 					</div>
 					<div>
@@ -35,7 +35,7 @@
 	<div class="results">
 		<div>
 			<div>
-				<ul><% include _listings %></ul>
+				<ul></ul>
 			</div>
 		</div>
 	</div>
