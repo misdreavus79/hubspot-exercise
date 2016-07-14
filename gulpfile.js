@@ -9,8 +9,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	ejs = require('gulp-ejs'),
 	browserSync = require("browser-sync").create(),
-	gutil = require('gulp-util'),
-	json = require('./src/js/data/data.json'); //simply reading the data in, unless there's a requirement to load it asynchronously
+	gutil = require('gulp-util');
 
 gulp.task('clean:css', function(){ //I use Grunt as my task runner,
 
@@ -20,6 +19,22 @@ gulp.task('clean:js', function(){ //please forgive me if some of these tasks are
 
 });
 
+gulp.task('css', ['clean:css'], function() { 
+	//since sass task was being called below, I made a sass task above to match (instead of changing this task to sass)
+});
+
+gulp.task('js', ['clean:js'], function() {
+	//using build task below to bundle files
+});
+
+gulp.task('ejs', function() {
+	//task not needed due to using React commponents
+});
+
+gulp.task('html', function() {
+	//task not needed due to using React commponents
+});
+
 gulp.task('sass', function() {
     return gulp.src("./src/scss/*.scss")
 		    .pipe(sass())
@@ -27,32 +42,16 @@ gulp.task('sass', function() {
 		    .pipe(browserSync.stream());
 });
 
-gulp.task('css', ['clean:css'], function() { 
-
-});
-
-gulp.task('js', ['clean:js'], function() {
-	return gulp.src("./src/js/index.js")
-			.pipe(gulp.dest("./build/js"));
-
-});
-
-gulp.task('ejs', function() {
-	return gulp.src("./src/views/pages/*.ejs")
-			.pipe(ejs(
-			{
-				data: json
-			}, 
-			{
-				ext: '.html' //compile into html 
-			}
-			)).on('error', gutil.log)
-			.pipe(gulp.dest("./build"));
-});
-
-gulp.task('html', function() {
-	//not really using this since 
-	//I'm compiling to html from the get go
+gulp.task('build', function () {
+  browserify({
+    entries: './src/js/components/Main.jsx',
+    extensions: ['.jsx'],
+    debug: true
+  })
+  .transform(babelify, {presets: ["es2015", "react"]})
+  .bundle()
+  .pipe(source('index.js'))
+  .pipe(gulp.dest('./build/js'));
 });
 
 gulp.task('serve', function() {
@@ -62,11 +61,10 @@ gulp.task('serve', function() {
 });
 
 // The default task (called when we run `gulp` from cli)
-gulp.task('default', ['ejs', 'js', 'sass', 'serve'], function() { 
+gulp.task('default', ['build', 'sass', 'serve'], function() { 
 
 	//watch files and perform propper actions
 	gulp.watch("./src/scss/*.scss", ['sass']);
-	gulp.watch("./src/views/**/*.ejs", ['ejs']);
-	gulp.watch("./src/js/index.js", ['js']);
+	gulp.watch("./src/js/**/*.jsx", ['build']);
     gulp.watch("./build/*.html").on('change', browserSync.reload);
 });
