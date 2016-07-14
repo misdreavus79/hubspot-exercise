@@ -32,6 +32,8 @@ gulp.task('css', ['clean:css'], function() {
 });
 
 gulp.task('js', ['clean:js'], function() {
+	return gulp.src("./src/js/index.js")
+			.pipe(gulp.dest("./build/js"));
 
 });
 
@@ -65,5 +67,6 @@ gulp.task('default', ['ejs', 'js', 'sass', 'serve'], function() {
 	//watch files and perform propper actions
 	gulp.watch("./src/scss/*.scss", ['sass']);
 	gulp.watch("./src/views/**/*.ejs", ['ejs']);
+	gulp.watch("./src/js/index.js", ['js']);
     gulp.watch("./build/*.html").on('change', browserSync.reload);
 });

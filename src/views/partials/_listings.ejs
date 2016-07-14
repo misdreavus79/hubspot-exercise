@@ -1,5 +1,8 @@
 <% filter = function(value){
-	data.media.forEach(function(listing){ %>
+	var filtered = data.media.filter(function(val){
+		return true;
+	});
+	filtered.forEach(function(listing){ %>
 		<li class="listing">
 			<figure>
 				<img src="<%= listing.poster %>">
