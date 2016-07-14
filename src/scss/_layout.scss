@@ -1,0 +1,92 @@
+.group:after{
+	content: '';
+	display: table;
+	clear: both;
+}
+h2, .testimonial, .filterable-content, .CTA{
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.testimonial{
+	background-color: $lighter-gray;
+	@include vertical-spacing();
+}
+
+.CTA{
+	background-color: $dark-blue;
+	@include vertical-spacing();
+}
+.ctaText, .ctaButton{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.ctaText{
+	width: 70%;
+	margin-right: 5%;
+	color: $lighter-gray;
+	font-family: $serif-stack;
+}
+
+.ctaButton{
+	@include button();
+}
+
+.filters{
+	margin-bottom: 18px;
+}
+.genres, .years{
+	position: relative;
+	@include floated-content();
+	&:hover .checkboxes, &:target .checkboxes, &:focus .checkboxes{
+		display: block;
+	}
+}
+.radio{
+	@include floated-content(); 
+}
+.dropdown{
+	@include dropdown();
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.checkboxes{
+	position: absolute;
+	width: 300px;
+	height: 150px;
+	overflow: scroll;
+	background-color: #fff;
+	display: none;
+	border-right: 1px solid $base-gray;
+	border-left: 1px solid $base-gray;
+	border-top: 1px solid $base-gray;
+	label{
+		display: block;
+		padding: 9px;
+		text-transform: uppercase;
+		color: $base-gray;
+		border-bottom: 1px solid $base-gray;
+	}
+	
+}
+
+.search {
+	input {
+		@include searchfield();
+		float: right;
+	}
+}
+
+.clear{
+	float: right;
+	a:link, a:visited{
+		color: $base-blue;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	a:hover, a:active{
+		color: $dark-blue;
+	}
+}

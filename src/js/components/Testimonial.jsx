@@ -14,8 +14,8 @@ class Testimonial extends React.Component{
 	}
 	render(){
 		return(
-			<div>
-				<div className="testimonial-block">
+			<div className="testimonial-block">
+				<div className="testimonial">
 					<p className="quote">{this.state.quote}</p>
 					<span className="citatation">{this.state.citation}</span>
 				</div>

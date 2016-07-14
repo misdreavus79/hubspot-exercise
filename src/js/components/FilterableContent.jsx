@@ -47,7 +47,8 @@ class FilterableContent extends React.Component {
 			listings: filtered
 		});
 	}
-	clearFilters(){
+	clearFilters(event){
+		event.preventDefault(); //stop it from jumping to the top of the page.
 		this.setState({
 			listings: this.props.listings
 		});
@@ -59,9 +60,9 @@ class FilterableContent extends React.Component {
 					<div>
 						<div>
 							<div className="filters group">
-								<div className="dropdown">
-									<span>Genre</span>
-									<div>
+								<div className="genres">
+									<span className="dropdown">Genre</span>
+									<div className="checkboxes">
 									{
 										this.state.genres.map((single) => {	
 											return <label key={single}><input type="checkbox" name="genre" value={single} onClick={this.filterByGenre.bind(this)} /> {single}</label>
@@ -69,9 +70,9 @@ class FilterableContent extends React.Component {
 									}
 									</div>
 								</div>
-								<div className="dropdown">
-									<span>Year</span>
-									<div>
+								<div className="years">
+									<span className="dropdown">Year</span>
+									<div className="checkboxes">
 									{
 										this.state.years.map((single) => {	
 											return <label key={single}><input type="checkbox" name="genre" value={single} /> {single}</label>

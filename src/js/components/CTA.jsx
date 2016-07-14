@@ -5,11 +5,13 @@ class CTA extends React.Component{
 	constructor(){
 		super();
 		this.state = {
-			ctaText: `Polaroid bushwick microdosing tattooed. 
-					Cornhole single-origin coffee bycicle rights lumbersexual, 
-					pour-over intelligentsia bahn mi ethical selfies schlitz raw
-					demin 90's leggings. Art party venmo chia, fap lubersexual mustache actually
-					tilde disrupt kinfolk cray health goth +1.`
+			ctaText: `Ability decreases antimagic balance domain base save bonus caster level check class skill covering effective hit point
+					  increase eladrin subtype enerty drained fear aura fear cone fear effect fraction frightful precense improved evasion
+					  level massive damage melee attack mentalism domain racial hit die retribution domain spell threat range touch spell 
+					  turn undead. Character coup de grace destruction domain fate domain goblinoid subtype lava effects monk mundane 
+					  native subtype paralisys pattern subschool regeneration. Animal type aquatic subtype change shape competence
+					  bonus dispel dispel turning drow domain gnome domain initiative count luck bonus overlap renewal domain scry 
+					  spell descriptor spell resistance surprise total concealment unarmed attack.`
 		}
 	}
 	generateText(){
@@ -29,7 +31,7 @@ class CTA extends React.Component{
 	}
 	render(){
 		return(
-			<section>
+			<section className="CTA">
 				<div>
 					<p className="ctaText">{this.state.ctaText}</p>
 					<a className="ctaButton" onClick={this.generateText.bind(this)}>Tell Me More</a>

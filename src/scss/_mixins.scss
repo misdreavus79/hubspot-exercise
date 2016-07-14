@@ -1,0 +1,33 @@
+@mixin button(){
+	border-radius: 5px;
+	background-color: $base-blue;
+	color: #fff;
+	text-transform: uppercase;
+	padding: 18px 36px;
+}
+
+@mixin vertical-spacing(){
+	padding-top: 36px;
+	padding-bottom: 36px;
+}
+
+@mixin dropdown(){
+	background-color: $lighter-gray;
+	color: $base-gray;
+	border-bottom: 3px solid $light-gray;
+	padding: 9px 18px;
+	width: 150px;
+	height: 20px;
+	display: block;
+
+}
+
+@mixin searchfield(){
+	height: 35px;
+	width: 250px;
+}
+
+@mixin floated-content(){
+	float: left;
+	margin-right: 10px;
+}

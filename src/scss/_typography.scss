@@ -3,3 +3,22 @@ p{
 	line-height: $base-line-height;
 	margin-bottom: $base-spacing;
 }
+h2{
+	background-color: $base-blue;
+	color: #fff;
+	font-family: $sans-serif-stack;
+	font-size: $heading-font-size;
+	padding-top: 36px;
+	padding-bottom: 36px;
+	border-top: 3px solid $dark-blue;
+	border-bottom: 3px solid $dark-blue;
+	margin-bottom: $base-spacing;
+}
+
+.radio{
+	label{
+		color: $dark-gray;
+		font-weight: bold;
+		margin-left: 9px;
+	}
+}
