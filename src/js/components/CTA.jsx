@@ -16,7 +16,7 @@ class CTA extends React.Component{
 	}
 	generateText(){
 		$.ajax({
-			url: 'http://api.icndb.com/jokes/random',
+			url: 'https://api.icndb.com/jokes/random',
 			method: 'GET',
 			dataType: 'json',
 			success: (data) => {
