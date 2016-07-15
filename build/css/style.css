@@ -399,7 +399,8 @@ h2 {
 
 .citation {
   font-family: "Montserrat", sans-serif;
-  color: #373737; }
+  color: #373737;
+  font-weight: bold; }
 
 .group:after {
   content: '';
@@ -414,7 +415,7 @@ h2, .testimonial, .filterable-content, .CTA {
   padding-right: 10%; }
 
 .testimonial {
-  background: #f7f7f7 url("../images/quote.png") no-repeat left center;
+  background: #f7f7f7 url("../images/quote.png") no-repeat 8% center;
   padding-top: 36px;
   padding-bottom: 36px; }
 
@@ -436,7 +437,12 @@ h2, .testimonial, .filterable-content, .CTA {
   background-color: #1da1db;
   color: #fff;
   text-transform: uppercase;
-  padding: 18px 36px; }
+  padding: 18px 36px;
+  transition: all .2s linear;
+  cursor: pointer; }
+  .ctaButton:hover {
+    color: #1da1db;
+    background-color: #fff; }
 
 .filters {
   margin-bottom: 18px; }
@@ -445,7 +451,7 @@ h2, .testimonial, .filterable-content, .CTA {
   position: relative;
   float: left;
   margin-right: 10px; }
-  .genres:hover .checkboxes, .genres:target .checkboxes, .genres:focus .checkboxes, .years:hover .checkboxes, .years:target .checkboxes, .years:focus .checkboxes {
+  .genres:hover .checkboxes, .genres:focus .checkboxes, .years:hover .checkboxes, .years:focus .checkboxes {
     display: block; }
 
 .radio {
@@ -472,10 +478,8 @@ h2, .testimonial, .filterable-content, .CTA {
   display: none;
   border-right: 1px solid #777;
   border-left: 1px solid #777;
-  border-top: 1px solid #777; }
-  .checkboxes::after {
-    content: '';
-    background: url("../images/arrow-up.png") no-repeat 0 0; }
+  border-top: 1px solid #777;
+  z-index: 11; }
   .checkboxes label {
     display: block;
     padding: 9px;
@@ -483,10 +487,23 @@ h2, .testimonial, .filterable-content, .CTA {
     color: #777;
     border-bottom: 1px solid #777; }
 
-.search input {
-  height: 35px;
-  width: 250px;
-  float: right; }
+.search {
+  position: relative; }
+  .search input {
+    height: 35px;
+    width: 250px;
+    border: 1px solid #777;
+    float: right; }
+  .search::after {
+    content: '';
+    background: url(../images/search-icon.png) no-repeat;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 10;
+    cursor: pointer; }
 
 .clear {
   float: right; }
@@ -500,4 +517,46 @@ h2, .testimonial, .filterable-content, .CTA {
 .listing {
   display: inline-block;
   vertical-align: top;
-  width: 33%; }
+  width: 32%;
+  border: 5px solid transparent;
+  cursor: pointer;
+  transition: all .2s linear; }
+  .listing:hover {
+    background-color: #b5e2f5;
+    border-radius: 5px;
+    border-color: #1da1db; }
+
+/* media queries */
+@media screen and (max-width: 1440px) {
+  .testimonial {
+    background-position: 6% center; } }
+
+@media screen and (max-width: 1024px) {
+  .listing {
+    width: 48%; } }
+
+@media screen and (max-width: 768px) {
+  h2, .testimonial, .filterable-content, .CTA {
+    padding-left: 2%;
+    padding-right: 2%; }
+  h2 {
+    font-size: 1em; }
+  ul {
+    margin: 0;
+    padding: 0; }
+  .testimonial {
+    background-image: none; }
+  .citation {
+    font-style: italic; }
+  .listing {
+    width: 96%; }
+  .genres, .years {
+    margin: 9px;
+    float: none;
+    display: inline-block; }
+  .search input {
+    float: none;
+    width: 100%;
+    margin: 18px 0; }
+  .search::after {
+    background: none; } }

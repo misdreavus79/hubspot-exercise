@@ -8,7 +8,8 @@ class FilterableContent extends React.Component {
 			listings: this.props.listings,
 			genres: this.props.genres,
 			years: this.props.years,
-			search: ''
+			search: '',
+			checkboxes: []
 		};
 	}
 	componentWillReceiveProps(nextProps){
@@ -18,14 +19,39 @@ class FilterableContent extends React.Component {
 			years: nextProps.years,	
 		});
 	}
-	filterByGenre(event){
-		let filtered = this.props.listings.filter(
-		    (single) => {
-				return single.genre.includes(event.target.value);
-			}
-		);
+	updateSearchField(event){
 		this.setState({
-			listings: filtered
+			search: event.target.value
+		});
+	}
+	updateCheckboxes(event){
+		if(event.target.checked){
+			this.state.checkboxes.push(event.target.value)
+		}else{
+			let index = this.state.checkboxes.indexOf(event.target.value);
+			this.state.checkboxes.splice(index, 1);
+		}
+		this.filterByCheckboxes();
+	}
+	filterByCheckboxes(event){
+		if(this.state.checkboxes.length < 1){
+			this.setState({
+				listings: this.props.listings //if user unchecks every box, return to default state
+			});
+			return;
+		}
+		let filtered, i, total = [];
+		for(i = 0; i < this.state.checkboxes.length; i++){
+			filtered = this.props.listings.filter(
+			    (single) => {
+					return 	single.genre.includes(this.state.checkboxes[i]) ||
+							single.year.includes(this.state.checkboxes[i]);
+				}
+			);
+			total = total.concat(filtered);
+		}
+		this.setState({
+			listings: total
 		});
 	}
 	filterByMediaType(event){
@@ -38,14 +64,19 @@ class FilterableContent extends React.Component {
 			listings: filtered
 		});
 	}
-	filterBySearch(event){
-		let filtered = this.props.listings.map((single) => {
-			return single.title.includes(event.target.value);
-		});
-		this.setState({
-			search: event.target.value,
-			listings: filtered
-		});
+	filterBySearch(event){		
+		if(event.keyCode === 13 || event.key === "Enter"){
+			let filtered = this.props.listings.filter(
+				(single) => {
+					return single.title.toLowerCase().includes(event.target.value.toLowerCase());
+				}
+			);
+			this.setState({
+				listings: filtered
+			});
+		}else{
+			return;
+		}
 	}
 	clearFilters(event){
 		event.preventDefault(); //stop it from jumping to the top of the page.
@@ -65,7 +96,7 @@ class FilterableContent extends React.Component {
 									<div className="checkboxes">
 									{
 										this.state.genres.map((single) => {	
-											return <label key={single}><input type="checkbox" name="genre" value={single} onClick={this.filterByGenre.bind(this)} /> {single}</label>
+											return <label key={single}><input type="checkbox" name="genre" value={single} onChange={this.updateCheckboxes.bind(this)} /> {single}</label>
 										})
 									}
 									</div>
@@ -75,13 +106,13 @@ class FilterableContent extends React.Component {
 									<div className="checkboxes">
 									{
 										this.state.years.map((single) => {	
-											return <label key={single}><input type="checkbox" name="genre" value={single} /> {single}</label>
+											return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes.bind(this)} /> {single}</label>
 										})
 									}
 									</div>
 								</div>
 								<div className="search">
-									<input type="text" value={this.state.search} onClick={this.filterBySearch.bind(this)} />
+									<input type="text" value={this.state.search} onChange={this.updateSearchField.bind(this)} onKeyPress={this.filterBySearch.bind(this)} placeholder="Press Enter to search" />
 								</div>
 							</div>
 							<div className="filters group">

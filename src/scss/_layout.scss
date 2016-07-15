@@ -12,7 +12,7 @@ h2, .testimonial, .filterable-content, .CTA{
 }
 
 .testimonial{
-	background: $lighter-gray url('../images/quote.png') no-repeat left center;
+	background: $lighter-gray url('../images/quote.png') no-repeat 8% center;
 	@include vertical-spacing();
 }
 
@@ -32,6 +32,12 @@ h2, .testimonial, .filterable-content, .CTA{
 
 .ctaButton{
 	@include button();
+	@include fast-transition();
+	cursor: pointer;
+	&:hover{
+		color: $base-blue;
+		background-color: #fff;
+	}
 }
 
 .filters{
@@ -40,7 +46,7 @@ h2, .testimonial, .filterable-content, .CTA{
 .genres, .years{
 	position: relative;
 	@include floated-content();
-	&:hover .checkboxes, &:target .checkboxes, &:focus .checkboxes{
+	&:hover .checkboxes, &:focus .checkboxes{
 		display: block;
 	}
 }
@@ -63,10 +69,7 @@ h2, .testimonial, .filterable-content, .CTA{
 	border-right: 1px solid $base-gray;
 	border-left: 1px solid $base-gray;
 	border-top: 1px solid $base-gray;
-	&::after{
-		content: '';
-		background: url('../images/arrow-up.png') no-repeat 0 0;
-	}
+	z-index: 11;
 	label{
 		display: block;
 		padding: 9px;
@@ -78,9 +81,21 @@ h2, .testimonial, .filterable-content, .CTA{
 }
 
 .search {
+	position: relative;
 	input {
 		@include searchfield();
 		float: right;
+	}
+	&::after{
+		content: '';
+		background: url(../images/search-icon.png) no-repeat;
+		width: 25px;
+		height: 25px;
+		position: absolute;
+		right: 5px;
+		top:5px;
+		z-index: 10;
+		cursor: pointer;
 	}
 }
 
@@ -99,5 +114,62 @@ h2, .testimonial, .filterable-content, .CTA{
 .listing{
 	display: inline-block;
 	vertical-align: top;
-	width: 33%;
+	width: 32%;
+	border: 5px solid transparent;
+	cursor: pointer;
+	@include fast-transition();
+	&:hover{
+		background-color: lighten($base-blue, 35%);
+		border-radius: 5px;
+		border-color: $base-blue;
+	}
+}
+
+/* media queries */
+@media screen and (max-width: 1440px){
+	.testimonial{
+		background-position: 6% center;
+	}
+}
+@media screen and (max-width: 1024px){
+	.listing{
+		width: 48%;
+	}
+}
+@media screen and (max-width: 768px){
+	h2, .testimonial, .filterable-content, .CTA{
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+	h2{
+		font-size: $base-font-size;
+	}
+	ul{
+		margin: 0;
+		padding: 0;
+	}
+	.testimonial{
+		background-image: none;
+	}
+	.citation{
+		font-style: italic;
+	}
+	.listing{
+		width: 96%;
+	}
+	.genres, .years{
+		margin: 9px;
+		float: none;
+		display: inline-block;
+	}
+	.search{
+		input{
+			float: none;
+			width: 100%;
+			margin: 18px 0;
+		}
+		&::after{
+			background: none;
+		}
+	}
 }
