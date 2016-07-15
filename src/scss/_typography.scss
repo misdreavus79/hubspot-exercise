@@ -22,3 +22,19 @@ h2{
 		margin-left: 9px;
 	}
 }
+
+.ctaText{
+	color: $lighter-gray;
+	font-family: $serif-stack;
+}
+
+.quote{
+	font-family: $serif-stack;
+	color: $base-gray;
+	font-size: $base-font-size * 1.5;
+}
+
+.citation{
+	font-family: $sans-serif-stack;
+	color: $dark-gray;
+}

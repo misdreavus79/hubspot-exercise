@@ -388,17 +388,33 @@ h2 {
   font-weight: bold;
   margin-left: 9px; }
 
+.ctaText {
+  color: #f7f7f7;
+  font-family: "Roboto Slab", serif; }
+
+.quote {
+  font-family: "Roboto Slab", serif;
+  color: #777;
+  font-size: 1.5em; }
+
+.citation {
+  font-family: "Montserrat", sans-serif;
+  color: #373737; }
+
 .group:after {
   content: '';
   display: table;
   clear: both; }
+
+img {
+  max-width: 100%; }
 
 h2, .testimonial, .filterable-content, .CTA {
   padding-left: 10%;
   padding-right: 10%; }
 
 .testimonial {
-  background-color: #f7f7f7;
+  background: #f7f7f7 url("../images/quote.png") no-repeat left center;
   padding-top: 36px;
   padding-bottom: 36px; }
 
@@ -413,9 +429,7 @@ h2, .testimonial, .filterable-content, .CTA {
 
 .ctaText {
   width: 70%;
-  margin-right: 5%;
-  color: #f7f7f7;
-  font-family: "Roboto Slab", serif; }
+  margin-right: 5%; }
 
 .ctaButton {
   border-radius: 5px;
@@ -459,6 +473,9 @@ h2, .testimonial, .filterable-content, .CTA {
   border-right: 1px solid #777;
   border-left: 1px solid #777;
   border-top: 1px solid #777; }
+  .checkboxes::after {
+    content: '';
+    background: url("../images/arrow-up.png") no-repeat 0 0; }
   .checkboxes label {
     display: block;
     padding: 9px;
@@ -479,3 +496,8 @@ h2, .testimonial, .filterable-content, .CTA {
     text-transform: uppercase; }
   .clear a:hover, .clear a:active {
     color: #0f434c; }
+
+.listing {
+  display: inline-block;
+  vertical-align: top;
+  width: 33%; }

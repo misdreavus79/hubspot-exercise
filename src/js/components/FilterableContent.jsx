@@ -81,7 +81,7 @@ class FilterableContent extends React.Component {
 									</div>
 								</div>
 								<div className="search">
-									<input type="text" value={this.state.search} onChange={this.filterBySearch.bind(this)} />
+									<input type="text" value={this.state.search} onClick={this.filterBySearch.bind(this)} />
 								</div>
 							</div>
 							<div className="filters group">

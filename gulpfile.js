@@ -72,6 +72,10 @@ gulp.task('default', ['ejs', 'build', 'sass', 'serve'], function() {
 	//move the data file to the build directory
 	gulp.src("./src/js/data/data.json")
 	.pipe(gulp.dest('./build/js/data'))
+
+	//move images as well
+	gulp.src("./src/images/*.png")
+	.pipe(gulp.dest('./build/images'))
 	
 	//watch files and perform propper actions
 	gulp.watch("./src/scss/*.scss", ['sass']);
