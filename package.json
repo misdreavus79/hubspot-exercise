@@ -4,8 +4,7 @@
   "description": "HubSpot Code Exercise",
   "main": "./build/index.js",
   "scripts": {
-    "start": "node build/js/index.js",
-    "build": "gulp"
+    "start": "gulp"
   },
   "author": "HubSpot Applicant",
   "license": "ISC",
@@ -28,6 +27,7 @@
     "gulp-sass": "^2.2.0",
     "gulp-uglify": "^1.5.3",
     "jquery": "^3.1.0",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {

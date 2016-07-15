@@ -9,26 +9,15 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	ejs = require('gulp-ejs'),
 	browserSync = require("browser-sync").create(),
-	gutil = require('gulp-util');
+	gutil = require('gulp-util'),
+	buffer = require('vinyl-buffer');
 
 gulp.task('clean:css', function(){ //I use Grunt as my task runner,
-
+	del(['./build/css/style.css']);
 });
 
 gulp.task('clean:js', function(){ //please forgive me if some of these tasks are not as optimized as they should be
-
-});
-
-gulp.task('css', ['clean:css'], function() { 
-	//since sass task was being called below, I made a sass task above to match (instead of changing this task to sass)
-});
-
-gulp.task('js', ['clean:js'], function() {
-	//using build task below to bundle files
-});
-
-gulp.task('html', function() {
-	//task not needed due to using React commponents
+	del(['./build/js/index.js']);
 });
 
 gulp.task('ejs', function() {
@@ -41,14 +30,15 @@ gulp.task('ejs', function() {
 			.pipe(gulp.dest("./build"));
 });
 
-gulp.task('sass', function() {
+gulp.task('sass', ['clean:css'], function() {
     return gulp.src("./src/scss/*.scss")
 		    .pipe(sass())
+		    .pipe(cssnano())
 		    .pipe(gulp.dest("./build/css"))
 		    .pipe(browserSync.stream());
 });
 
-gulp.task('build', function () {
+gulp.task('build', ['clean:js'], function () {
   browserify({
     entries: './src/js/components/Main.jsx',
     extensions: ['.jsx'],
@@ -57,8 +47,11 @@ gulp.task('build', function () {
   .transform(babelify, {presets: ["es2015", "react"]})
   .bundle()
   .pipe(source('index.js'))
+  .pipe(buffer())
+  .pipe(uglify())
   .pipe(gulp.dest('./build/js'));
 });
+
 
 gulp.task('serve', function() {
 	browserSync.init({
