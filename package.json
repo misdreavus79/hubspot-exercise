@@ -5,7 +5,7 @@
   "main": "./build/index.js",
   "scripts": {
     "start": "node build/js/index.js",
-    "test": "gulp"
+    "build": "gulp"
   },
   "author": "HubSpot Applicant",
   "license": "ISC",
