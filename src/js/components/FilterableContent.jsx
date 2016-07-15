@@ -13,6 +13,15 @@ class FilterableContent extends React.Component {
 		};
 	}
 	componentWillReceiveProps(nextProps){
+		nextProps.listings.sort((a,b) => {
+			if (a.title < b.title){
+				return -1;
+			}
+			if (a.title > b.title){
+				return 1;
+			}
+			return 0;
+		});
 		this.setState({
 			listings: nextProps.listings,
 			genres: nextProps.genres,
