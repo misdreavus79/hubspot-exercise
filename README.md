@@ -9,3 +9,5 @@ A few notes on the assignment:
     * Provided ejs templates were left in the project for reference.
 * Separated filter functionality into their own methods, to avoid having one monolithic method that hanldes everything (and is prone to errors).
     * Each filter is independent of each other.
+
+**Please Note**: Github Pages is https, and the chuck norris API is http. If checking the project on Githup Pages, the API call will fail.
