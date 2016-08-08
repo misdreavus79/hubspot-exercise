@@ -11,6 +11,7 @@ class FilterableContent extends React.Component {
 			search: '',
 			checkboxes: []
 		};
+		this.updateCheckboxes = this.updateCheckboxes.bind(this);
 	}
 	componentWillReceiveProps(nextProps){
 		nextProps.listings.sort((a,b) => {
@@ -105,7 +106,7 @@ class FilterableContent extends React.Component {
 									<div className="checkboxes">
 									{
 										this.state.genres.map((single) => {	
-											return <label key={single}><input type="checkbox" name="genre" value={single} onChange={this.updateCheckboxes.bind(this)} /> {single}</label>
+											return <label key={single}><input type="checkbox" name="genre" value={single} onChange={this.updateCheckboxes} /> {single}</label>
 										})
 									}
 									</div>
@@ -115,7 +116,7 @@ class FilterableContent extends React.Component {
 									<div className="checkboxes">
 									{
 										this.state.years.map((single) => {	
-											return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes.bind(this)} /> {single}</label>
+											return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes} /> {single}</label>
 										})
 									}
 									</div>
