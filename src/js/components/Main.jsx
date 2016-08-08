@@ -14,7 +14,7 @@ class Main extends React.Component {
 			years: []
 		}
 	}
-	getMedia(){ 
+	componentWillMount(){
 		$.ajax({
 			url: this.props.url,
 			dataType: 'json',
@@ -29,12 +29,6 @@ class Main extends React.Component {
 	        	console.error(this.props.url, status, err.toString());
 	        }
 		});
-	}
-	componentWillMount(){
-		
-	}
-	componentDidMount(){
-		this.getMedia();
 	}
 	generateDynamicYears(){
 		//extract the years from the provided data
@@ -70,11 +64,11 @@ class Main extends React.Component {
 	render(){
 		return(
 		   	<div className="container">
-			   <h2>Exercise 1 - Testimonial Block</h2>
+			   <h2>Sample 1 - Testimonial Block</h2>
 			   <Testimonial />
-			   <h2>Exercise 2 - CTA Quote</h2>
+			   <h2>Sample 2 - CTA Quote</h2>
 			   <CTA />
-			   <h2>Exercise 3 - Filterable Content</h2>
+			   <h2>Sample 3 - Filterable Content</h2>
 		       <FilterableContent listings={this.state.listings} genres={this.state.genres} years={this.state.years} />
 		    </div>
 		)
