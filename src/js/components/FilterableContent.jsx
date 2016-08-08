@@ -128,7 +128,7 @@ class FilterableContent extends React.Component {
 									</div>
 								</div>
 								<div className="search">
-									<input type="text" value={this.state.search} onChange={} onKeyPress={this.filterBySearch} placeholder="Press Enter to search" />
+									<input type="text" value={this.state.search} onChange={this.updateSearchField} onKeyPress={this.filterBySearch} placeholder="Press Enter to search" />
 								</div>
 							</div>
 							<div className="filters group">
@@ -154,7 +154,7 @@ class FilterableContent extends React.Component {
 							{
 								this.state.listings.map((single) => {
 									return <Listing item={single} key={single.title} />
-								});
+								})
 							}
 							</ul>
 						</div>

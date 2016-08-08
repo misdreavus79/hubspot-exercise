@@ -1,12 +1,12 @@
 {
-  "name": "hubspot-code-exercise",
+  "name": "react-samples",
   "version": "1.0.0",
-  "description": "HubSpot Code Exercise",
+  "description": "Sample React components",
   "main": "./build/index.js",
   "scripts": {
     "start": "gulp"
   },
-  "author": "HubSpot Applicant",
+  "author": "Eliezer Moreta-Feliz",
   "license": "ISC",
   "private": true,
   "devDependencies": {

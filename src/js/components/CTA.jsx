@@ -12,16 +12,23 @@ class CTA extends React.Component{
 					  native subtype paralisys pattern subschool regeneration. Animal type aquatic subtype change shape competence
 					  bonus dispel dispel turning drow domain gnome domain initiative count luck bonus overlap renewal domain scry 
 					  spell descriptor spell resistance surprise total concealment unarmed attack.`
-		}
+		};
+
+		//event handlers
+		this.generateText = this.generateText.bind(this);
 	}
-	generateText(){
+	componentWillMount(){
+		//get list of jokes on first load
 		$.ajax({
-			url: 'http://api.icndb.com/jokes/random',
+			url: 'http://api.icndb.com/jokes',
 			method: 'GET',
 			dataType: 'json',
 			success: (data) => {
+				let cleanJokes = data.value.filter((single) => {
+					return !single.categories.includes('explicit'); //get rid of the naughty jokes
+				});
 				this.setState({
-					ctaText: data.value.joke
+					jokeList: cleanJokes
 				});
 			},
 			error: (xhr, status, err) => {
@@ -29,12 +36,19 @@ class CTA extends React.Component{
 	        }
 		});
 	}
+	generateText(){
+		//randomly assign a new joke to be displayed
+		let index = Math.floor(Math.random() * this.state.jokeList.length);
+		this.setState({
+			ctaText: this.state.jokeList[index].joke
+		});
+	}
 	render(){
 		return(
 			<section className="CTA">
 				<div>
 					<p className="ctaText">{this.state.ctaText}</p>
-					<a className="ctaButton" onClick={this.generateText.bind(this)}>Tell Me More</a>
+					<a className="ctaButton" onClick={this.generateText}>Tell Me More</a>
 				</div>
 			</section>
 		)
