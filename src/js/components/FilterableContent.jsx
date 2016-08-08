@@ -6,8 +6,6 @@ class FilterableContent extends React.Component {
 		super(props);
 		this.state = {
 			listings: this.props.listings,
-			genres: this.props.genres,
-			years: this.props.years,
 			search: '',
 			checkboxes: []
 		};
@@ -20,7 +18,7 @@ class FilterableContent extends React.Component {
 		this.clearFilters = this.clearFilters.bind(this);
 	}
 	componentWillReceiveProps(nextProps){
-		nextProps.listings.sort((a,b) => {
+		nextProps.listings.sort((a,b) => { //sort media listings by title
 			if (a.title < b.title){
 				return -1;
 			}
@@ -31,9 +29,14 @@ class FilterableContent extends React.Component {
 		});
 		this.setState({
 			listings: nextProps.listings,
-			genres: nextProps.genres,
-			years: nextProps.years,	
+			genres: nextProps.genres.map((single) => {	
+						return <label key={single}><input type="checkbox" name="genre" value={single} onChange={this.updateCheckboxes} /> {single}</label>
+					}),
+			years: nextProps.years.map((single) => {	
+						return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes} /> {single}</label>
+					})	
 		});
+		console.log(this.props.genres);
 	}
 	updateSearchField(event){
 		this.setState({
@@ -66,6 +69,7 @@ class FilterableContent extends React.Component {
 			);
 			total = total.concat(filtered);
 		}
+		total = Array.from(new Set(total)); //remove duplicates
 		this.setState({
 			listings: total
 		});
@@ -101,27 +105,20 @@ class FilterableContent extends React.Component {
 		});
 	}
 	render(){
+		console.log(this.listings)
 		return(
 	        <section className="filterable-content">
 				<div className="filters group">
 					<div className="genres">
 						<span className="dropdown">Genre</span>
 						<div className="checkboxes">
-						{
-							this.state.genres.map((single) => {	
-								return <label key={single}><input type="checkbox" name="genre" value={single} onChange={this.updateCheckboxes} /> {single}</label>
-							})
-						}
+							{this.state.genres}
 						</div>
 					</div>
 					<div className="years">
 						<span className="dropdown">Year</span>
 						<div className="checkboxes">
-						{
-							this.state.years.map((single) => {	
-								return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes} /> {single}</label>
-							})
-						}
+							{this.state.years}
 						</div>
 					</div>
 					<div className="search">

@@ -1,9 +1,15 @@
 import React from "react";
 
+/*
+Presentational component. 
+Since data isn't changing, the quote and and citation 
+state variables can alternatively be input directly into the component.
+Using state allows for the flexibility to mutate the data at a later date.
+*/
 class Testimonial extends React.Component{
 	constructor(){
 		super();
-		this.state = {
+		this.state = { 
 			quote: `Polaroid bushwick microdosing tattooed. 
 					Cornhole single-origin coffee bycicle rights lumbersexual, 
 					pour-over intelligentsia bahn mi ethical selfies schlitz raw

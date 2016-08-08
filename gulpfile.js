@@ -47,8 +47,8 @@ gulp.task('build', ['clean:js'], function () {
   .transform(babelify, {presets: ["es2015", "react"]})
   .bundle()
   .pipe(source('index.js'))
-  .pipe(buffer())
-  .pipe(uglify())
+  // .pipe(buffer())
+  // .pipe(uglify())
   .pipe(gulp.dest('./build/js'));
 });
 
