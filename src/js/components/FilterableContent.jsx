@@ -11,7 +11,13 @@ class FilterableContent extends React.Component {
 			search: '',
 			checkboxes: []
 		};
+
+		//event bindings
 		this.updateCheckboxes = this.updateCheckboxes.bind(this);
+		this.filterBySearch = this.filterBySearch.bind(this);
+		this.filterByMediaType = this.filterByMediaType.bind(this);
+		this.updateSearchField = this.updateSearchField.bind(this);
+		this.clearFilters = this.clearFilters.bind(this);
 	}
 	componentWillReceiveProps(nextProps){
 		nextProps.listings.sort((a,b) => {
@@ -122,20 +128,20 @@ class FilterableContent extends React.Component {
 									</div>
 								</div>
 								<div className="search">
-									<input type="text" value={this.state.search} onChange={this.updateSearchField.bind(this)} onKeyPress={this.filterBySearch.bind(this)} placeholder="Press Enter to search" />
+									<input type="text" value={this.state.search} onChange={} onKeyPress={this.filterBySearch} placeholder="Press Enter to search" />
 								</div>
 							</div>
 							<div className="filters group">
 								<div className="radio">
-									<input type="radio" name="choice" value="movie" onClick={this.filterByMediaType.bind(this)} />
+									<input type="radio" name="choice" value="movie" onClick={this.filterByMediaType} />
 									<label>Movies</label>
 								</div>
 								<div className="radio">
-									<input type="radio" name="choice" value="book" onClick={this.filterByMediaType.bind(this)} />
+									<input type="radio" name="choice" value="book" onClick={this.filterByMediaType} />
 									<label>Books</label>
 								</div>
 								<div className="clear">
-									<a href="#" onClick={this.clearFilters.bind(this)}>Clear filters</a>
+									<a href="#" onClick={this.clearFilters}>Clear filters</a>
 								</div>
 							</div>
 						</div>
@@ -148,7 +154,7 @@ class FilterableContent extends React.Component {
 							{
 								this.state.listings.map((single) => {
 									return <Listing item={single} key={single.title} />
-								})
+								});
 							}
 							</ul>
 						</div>
