@@ -36,7 +36,6 @@ class FilterableContent extends React.Component {
 						return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes} /> {single}</label>
 					})	
 		});
-		console.log(this.props.genres);
 	}
 	updateSearchField(event){
 		this.setState({
