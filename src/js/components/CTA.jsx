@@ -46,10 +46,8 @@ class CTA extends React.Component{
 	render(){
 		return(
 			<section className="CTA">
-				<div>
-					<p className="ctaText">{this.state.ctaText}</p>
-					<a className="ctaButton" onClick={this.generateText}>Tell Me More</a>
-				</div>
+				<p className="ctaText">{this.state.ctaText}</p>
+				<a className="ctaButton" onClick={this.generateText}>Tell Me More</a>
 			</section>
 		)
 	}

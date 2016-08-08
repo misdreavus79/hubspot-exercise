@@ -103,62 +103,52 @@ class FilterableContent extends React.Component {
 	render(){
 		return(
 	        <section className="filterable-content">
-				<div>
-					<div>
-						<div>
-							<div className="filters group">
-								<div className="genres">
-									<span className="dropdown">Genre</span>
-									<div className="checkboxes">
-									{
-										this.state.genres.map((single) => {	
-											return <label key={single}><input type="checkbox" name="genre" value={single} onChange={this.updateCheckboxes} /> {single}</label>
-										})
-									}
-									</div>
-								</div>
-								<div className="years">
-									<span className="dropdown">Year</span>
-									<div className="checkboxes">
-									{
-										this.state.years.map((single) => {	
-											return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes} /> {single}</label>
-										})
-									}
-									</div>
-								</div>
-								<div className="search">
-									<input type="text" value={this.state.search} onChange={this.updateSearchField} onKeyPress={this.filterBySearch} placeholder="Press Enter to search" />
-								</div>
-							</div>
-							<div className="filters group">
-								<div className="radio">
-									<input type="radio" name="choice" value="movie" onClick={this.filterByMediaType} />
-									<label>Movies</label>
-								</div>
-								<div className="radio">
-									<input type="radio" name="choice" value="book" onClick={this.filterByMediaType} />
-									<label>Books</label>
-								</div>
-								<div className="clear">
-									<a href="#" onClick={this.clearFilters}>Clear filters</a>
-								</div>
-							</div>
+				<div className="filters group">
+					<div className="genres">
+						<span className="dropdown">Genre</span>
+						<div className="checkboxes">
+						{
+							this.state.genres.map((single) => {	
+								return <label key={single}><input type="checkbox" name="genre" value={single} onChange={this.updateCheckboxes} /> {single}</label>
+							})
+						}
 						</div>
+					</div>
+					<div className="years">
+						<span className="dropdown">Year</span>
+						<div className="checkboxes">
+						{
+							this.state.years.map((single) => {	
+								return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes} /> {single}</label>
+							})
+						}
+						</div>
+					</div>
+					<div className="search">
+						<input type="text" value={this.state.search} onChange={this.updateSearchField} onKeyPress={this.filterBySearch} placeholder="Press Enter to search" />
+					</div>
+				</div>
+				<div className="filters group">
+					<div className="radio">
+						<input type="radio" name="choice" value="movie" onClick={this.filterByMediaType} />
+						<label>Movies</label>
+					</div>
+					<div className="radio">
+						<input type="radio" name="choice" value="book" onClick={this.filterByMediaType} />
+						<label>Books</label>
+					</div>
+					<div className="clear">
+						<a href="#" onClick={this.clearFilters}>Clear filters</a>
 					</div>
 				</div>
 				<div className="results">
-					<div>
-						<div>
-							<ul>
-							{
-								this.state.listings.map((single) => {
-									return <Listing item={single} key={single.title} />
-								})
-							}
-							</ul>
-						</div>
-					</div>
+					<ul>
+					{
+						this.state.listings.map((single) => {
+							return <Listing item={single} key={single.title} />
+						})
+					}
+					</ul>
 				</div>
 			</section>
 		)
