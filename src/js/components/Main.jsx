@@ -64,9 +64,9 @@ class Main extends React.Component {
 	render(){
 		return(
 		   	<div className="container">
-			   <h2>Sample 1 - Testimonial Block</h2>
+			   <h2>Sample 1 - Static Text</h2>
 			   <Testimonial />
-			   <h2>Sample 2 - CTA Quote</h2>
+			   <h2>Sample 2 - Dynamic Text</h2>
 			   <CTA />
 			   <h2>Sample 3 - Filterable Content</h2>
 		       <FilterableContent listings={this.state.listings} genres={this.state.genres} years={this.state.years} />

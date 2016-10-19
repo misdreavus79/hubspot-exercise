@@ -1,5 +1,6 @@
 import React from "react";
 import $ from "jquery";
+import Ajax from "../lib/Ajax";
 
 class CTA extends React.Component{
 	constructor(){
@@ -19,22 +20,35 @@ class CTA extends React.Component{
 	}
 	componentWillMount(){
 		//get list of jokes on first load
-		$.ajax({
-			url: 'http://api.icndb.com/jokes',
-			method: 'GET',
-			dataType: 'json',
-			success: (data) => {
-				let cleanJokes = data.value.filter((single) => {
-					return !single.categories.includes('explicit'); //get rid of the naughty jokes
-				});
-				this.setState({
-					jokeList: cleanJokes
-				});
-			},
-			error: (xhr, status, err) => {
-	        	console.error(status, err.toString());
-	        }
+		let ajax = new Ajax();
+		ajax.get('http://api.icndb.com/jokes').then((response) => {
+			
+			let allJokes = JSON.parse(response),
+			cleanJokes = allJokes.value.filter((single) => {
+				return !single.categories.includes('explicit'); //get rid of the naughty jokes
+			});
+			this.setState({
+				jokeList: cleanJokes
+			});
+		}).catch((error) => {
+			console.error("Request failed.", error);
 		});
+		// $.ajax({
+		// 	url: 'http://api.icndb.com/jokes',
+		// 	method: 'GET',
+		// 	dataType: 'json',
+		// 	success: (data) => {
+		// 		let cleanJokes = data.value.filter((single) => {
+		// 			return !single.categories.includes('explicit'); //get rid of the naughty jokes
+		// 		});
+		// 		this.setState({
+		// 			jokeList: cleanJokes
+		// 		});
+		// 	},
+		// 	error: (xhr, status, err) => {
+	 //        	console.error(status, err.toString());
+	 //        }
+		// });
 	}
 	generateText(){
 		//randomly assign a new joke to be displayed
