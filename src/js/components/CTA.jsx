@@ -21,12 +21,14 @@ class CTA extends React.Component{
 	componentWillMount(){
 		//get list of jokes on first load
 		let ajax = new Ajax();
+		console.log(ajax);
 		ajax.get('http://api.icndb.com/jokes').then((response) => {
 			
 			let allJokes = JSON.parse(response),
 			cleanJokes = allJokes.value.filter((single) => {
 				return !single.categories.includes('explicit'); //get rid of the naughty jokes
 			});
+			console.log(allJokes, cleanJokes);
 			this.setState({
 				jokeList: cleanJokes
 			});

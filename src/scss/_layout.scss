@@ -12,7 +12,7 @@ h2, .testimonial, .filterable-content, .CTA{
 }
 
 .testimonial{
-	background: $lighter-gray url('../images/quote.png') no-repeat 8% center;
+	background-color: $lighter-gray;
 	@include vertical-spacing();
 }
 
