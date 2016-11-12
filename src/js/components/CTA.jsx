@@ -1,5 +1,4 @@
 import React from "react";
-import $ from "jquery";
 import Ajax from "../lib/Ajax";
 
 class CTA extends React.Component{
@@ -12,7 +11,9 @@ class CTA extends React.Component{
 					  turn undead. Character coup de grace destruction domain fate domain goblinoid subtype lava effects monk mundane 
 					  native subtype paralisys pattern subschool regeneration. Animal type aquatic subtype change shape competence
 					  bonus dispel dispel turning drow domain gnome domain initiative count luck bonus overlap renewal domain scry 
-					  spell descriptor spell resistance surprise total concealment unarmed attack.`
+					  spell descriptor spell resistance surprise total concealment unarmed attack.`,
+			jokeList: [],
+			loadStatus: "Loading Jokes..."
 		};
 
 		//event handlers
@@ -21,36 +22,22 @@ class CTA extends React.Component{
 	componentWillMount(){
 		//get list of jokes on first load
 		let ajax = new Ajax();
-		console.log(ajax);
 		ajax.get('http://api.icndb.com/jokes').then((response) => {
 			
 			let allJokes = JSON.parse(response),
 			cleanJokes = allJokes.value.filter((single) => {
 				return !single.categories.includes('explicit'); //get rid of the naughty jokes
 			});
-			console.log(allJokes, cleanJokes);
 			this.setState({
-				jokeList: cleanJokes
+				jokeList: cleanJokes,
+				loadStatus: "Tell Me More"
 			});
 		}).catch((error) => {
 			console.error("Request failed.", error);
+			this.setState({
+				loadStatus: "Error loading jokes"
+			});
 		});
-		// $.ajax({
-		// 	url: 'http://api.icndb.com/jokes',
-		// 	method: 'GET',
-		// 	dataType: 'json',
-		// 	success: (data) => {
-		// 		let cleanJokes = data.value.filter((single) => {
-		// 			return !single.categories.includes('explicit'); //get rid of the naughty jokes
-		// 		});
-		// 		this.setState({
-		// 			jokeList: cleanJokes
-		// 		});
-		// 	},
-		// 	error: (xhr, status, err) => {
-	 //        	console.error(status, err.toString());
-	 //        }
-		// });
 	}
 	generateText(){
 		//randomly assign a new joke to be displayed
@@ -63,7 +50,7 @@ class CTA extends React.Component{
 		return(
 			<section className="CTA">
 				<p className="ctaText">{this.state.ctaText}</p>
-				<a className="ctaButton" onClick={this.generateText}>Tell Me More</a>
+				<a className="ctaButton" onClick={this.generateText}>{this.state.loadStatus}</a>
 			</section>
 		)
 	}

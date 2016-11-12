@@ -2,3 +2,4 @@ build
 for-me.md
 node_modules
 npm-debug.log
+**/**/.DS_Store

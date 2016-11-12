@@ -1,5 +1,10 @@
 import React from "react";
-import $ from "jquery";
+
+/*
+Presentational component. 
+Parent component sends the data as props,
+which can be changed at any time and rerendered
+*/
 
 const Listing = ({item}) =>
 	<li className="listing">

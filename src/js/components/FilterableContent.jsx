@@ -104,7 +104,6 @@ class FilterableContent extends React.Component {
 		});
 	}
 	render(){
-		console.log(this.listings)
 		return(
 	        <section className="filterable-content">
 				<div className="filters group">

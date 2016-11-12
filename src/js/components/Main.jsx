@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import $ from "jquery";
 import Testimonial from "./Testimonial";
 import CTA from "./CTA";
 import FilterableContent from "./FilterableContent";
+import Ajax from "../lib/Ajax";
 
 class Main extends React.Component {
 	constructor(){
@@ -11,23 +11,27 @@ class Main extends React.Component {
 		this.state = {
 			listings: [],
 			genres: [],
-			years: []
+			years: [],
+			quote: `Polaroid bushwick microdosing tattooed. 
+					Cornhole single-origin coffee bycicle rights lumbersexual, 
+					pour-over intelligentsia bahn mi ethical selfies schlitz raw
+					demin 90's leggings. Art party venmo chia, fap lubersexual mustache actually
+					tilde disrupt kinfolk cray health goth +1.`,
+			citation: "Indiana Jones, Archaeologist"
 		}
 	}
 	componentWillMount(){
-		$.ajax({
-			url: this.props.url,
-			dataType: 'json',
-			success: (data) => {
-				this.setState({
-					listings: data.media,
-				});
-				this.generateDynamicYears();
-				this.generateDynamicGenres();
-			},
-			error: (xhr, status, err) => {
-	        	console.error(this.props.url, status, err.toString());
-	        }
+		let ajax = new Ajax();
+		ajax.get(this.props.url).then((response) => {
+			
+			let data = JSON.parse(response);
+			this.setState({
+				listings: data.media,
+			});
+			this.generateDynamicYears();
+			this.generateDynamicGenres();
+		}).catch((error) => {
+			console.error("Request failed.", error);
 		});
 	}
 	generateDynamicYears(){
@@ -65,7 +69,7 @@ class Main extends React.Component {
 		return(
 		   	<div className="container">
 			   <h2>Sample 1 - Static Text</h2>
-			   <Testimonial />
+			   <Testimonial quote={this.state.quote} citation={this.state.citation} />
 			   <h2>Sample 2 - Dynamic Text</h2>
 			   <CTA />
 			   <h2>Sample 3 - Filterable Content</h2>
