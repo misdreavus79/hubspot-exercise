@@ -4,6 +4,7 @@ import Testimonial from "./Testimonial";
 import CTA from "./CTA";
 import FilterableContent from "./FilterableContent";
 import Ajax from "../lib/Ajax";
+import Filter from "../lib/Filter";
 
 class Main extends React.Component {
 	constructor(){
@@ -19,6 +20,7 @@ class Main extends React.Component {
 					tilde disrupt kinfolk cray health goth +1.`,
 			citation: "Indiana Jones, Archaeologist"
 		}
+		this.filter = new Filter();
 	}
 	componentWillMount(){
 		let ajax = new Ajax();
@@ -39,27 +41,21 @@ class Main extends React.Component {
 		let filtered = this.state.listings.map((single) => {
 			return single.year;
 		});
-		filtered = Array.from(new Set(filtered)).sort(); //remove duplicates and sort
+		filtered = this.filter.removeDuplicates(filtered).sort(); //remove duplicates and sort
 		this.setState({
 			years: filtered
 		});
 	}
 	generateDynamicGenres(){
 
-		//extract the genres from the provided data
+		//extract the genres from the provided data, make a single array of genres
 		let filtered = this.state.listings.map((single) => {
 			return single.genre;
-		}),
-		finalGenres = [];
-
-		//iterate through multi-dimensional array and create a single array of genres
-		filtered.forEach((i) => {
-			i.forEach((j) => {
-				finalGenres.push(j);
-			});
+		}).reduce((a, b) => {
+			return a.concat(b);
 		});
 
-		finalGenres = Array.from(new Set(finalGenres)).sort(); //remove duplicates and sort
+		const finalGenres = this.filter.removeDuplicates(filtered).sort(); //remove duplicates and sort
 
 		this.setState({
 			genres: finalGenres
@@ -73,7 +69,7 @@ class Main extends React.Component {
 			   <h2>Sample 2 - Dynamic Text</h2>
 			   <CTA />
 			   <h2>Sample 3 - Filterable Content</h2>
-		       <FilterableContent listings={this.state.listings} genres={this.state.genres} years={this.state.years} />
+		       <FilterableContent listings={this.state.listings} genres={this.state.genres} years={this.state.years} filter={this.filter} />
 		    </div>
 		)
 	}

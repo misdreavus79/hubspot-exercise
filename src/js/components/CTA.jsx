@@ -37,6 +37,7 @@ class CTA extends React.Component{
 			this.setState({
 				loadStatus: "Error loading jokes"
 			});
+			console.log(this.findDOMNode('.ctaButton'));
 		});
 	}
 	generateText(){

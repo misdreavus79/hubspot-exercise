@@ -9,7 +9,6 @@ class FilterableContent extends React.Component {
 			search: '',
 			checkboxes: []
 		};
-
 		//event bindings
 		this.updateCheckboxes = this.updateCheckboxes.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
@@ -68,7 +67,7 @@ class FilterableContent extends React.Component {
 			);
 			total = total.concat(filtered);
 		}
-		total = Array.from(new Set(total)); //remove duplicates
+		total = this.props.filter.removeDuplicates(total);
 		this.setState({
 			listings: total
 		});
