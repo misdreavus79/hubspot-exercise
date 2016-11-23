@@ -2,20 +2,18 @@ export default class Filter{
 	removeDuplicates(target){
 		return Array.from(new Set(target));
 	}
-	removeByTerm(options){
-		return options.target.filter(
-			(single) => {
-				return !single.includes(options.term);
-			}
-		);
-		//return filtered;
-	}
 	byTerm(options){
 		return options.target.filter(
 			(single) => {
-				return single.includes(options.term);
+				return single.includes(options.term) === options.shouldInclude;
 			}
 		);
-		//return filtered;
+	}
+	byObjectValue(options){
+		return options.target.filter(
+    		(single) => { //ensure operations are returning correct matches
+    			return single[options.property].toString().toLowerCase().includes(options.value.toString().toLowerCase()) === options.shouldInclude;
+    		}
+		);
 	}
 }

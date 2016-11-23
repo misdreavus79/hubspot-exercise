@@ -22,4 +22,8 @@ export default class Ajax {
 		});
 
 	}
+
+	getJson(url) {
+		return this.get(url).then(JSON.parse);
+	}
 }

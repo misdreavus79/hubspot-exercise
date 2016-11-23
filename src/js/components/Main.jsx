@@ -21,45 +21,37 @@ class Main extends React.Component {
 			citation: "Indiana Jones, Archaeologist"
 		}
 		this.filter = new Filter();
+		this.ajax = new Ajax();
 	}
 	componentWillMount(){
-		let ajax = new Ajax();
-		ajax.get(this.props.url).then((response) => {
-			
-			let data = JSON.parse(response);
+		this.ajax.getJson(this.props.url).then((response) => {
 			this.setState({
-				listings: data.media,
+				listings: response.media
 			});
-			this.generateDynamicYears();
-			this.generateDynamicGenres();
+			this.generateCheckboxes();
 		}).catch((error) => {
 			console.error("Request failed.", error);
 		});
 	}
-	generateDynamicYears(){
-		//extract the years from the provided data
-		let filtered = this.state.listings.map((single) => {
+	generateCheckboxes(){
+		//extract the years and genres from the provided data
+		let years = this.state.listings.map((single) => {
 			return single.year;
-		});
-		filtered = this.filter.removeDuplicates(filtered).sort(); //remove duplicates and sort
-		this.setState({
-			years: filtered
-		});
-	}
-	generateDynamicGenres(){
-
-		//extract the genres from the provided data, make a single array of genres
-		let filtered = this.state.listings.map((single) => {
+		}),
+		genres = this.state.listings.map((single) => {
 			return single.genre;
-		}).reduce((a, b) => {
+		}).reduce((a, b) => { //make a single array of genres from the returned multi-dimensional array
 			return a.concat(b);
 		});
 
-		const finalGenres = this.filter.removeDuplicates(filtered).sort(); //remove duplicates and sort
+		//remove duplicates and sort
+		years = this.filter.removeDuplicates(years).sort(); 
+		genres = this.filter.removeDuplicates(genres).sort(); 
 
 		this.setState({
-			genres: finalGenres
-		})
+			genres: genres,
+			years: years
+		});
 	}
 	render(){
 		return(
@@ -67,7 +59,7 @@ class Main extends React.Component {
 			   <h2>Sample 1 - Static Text</h2>
 			   <Testimonial quote={this.state.quote} citation={this.state.citation} />
 			   <h2>Sample 2 - Dynamic Text</h2>
-			   <CTA />
+			   <CTA ajax={this.ajax} filter={this.filter} />
 			   <h2>Sample 3 - Filterable Content</h2>
 		       <FilterableContent listings={this.state.listings} genres={this.state.genres} years={this.state.years} filter={this.filter} />
 		    </div>

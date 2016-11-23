@@ -1,5 +1,4 @@
 import React from "react";
-import Ajax from "../lib/Ajax";
 
 class CTA extends React.Component{
 	constructor(){
@@ -20,13 +19,13 @@ class CTA extends React.Component{
 		this.generateText = this.generateText.bind(this);
 	}
 	componentWillMount(){
-		//get list of jokes on first load
-		let ajax = new Ajax();
-		ajax.get('http://api.icndb.com/jokes').then((response) => {
-			
-			let allJokes = JSON.parse(response),
-			cleanJokes = allJokes.value.filter((single) => {
-				return !single.categories.includes('explicit'); //get rid of the naughty jokes
+		this.props.ajax.getJson('http://api.icndb.com/jokes').then((response) => {
+
+			let cleanJokes = this.props.filter.byObjectValue({
+				target: response.value,
+				property: 'categories',
+				value: 'explicit',
+				shouldInclude: false
 			});
 			this.setState({
 				jokeList: cleanJokes,
@@ -37,7 +36,6 @@ class CTA extends React.Component{
 			this.setState({
 				loadStatus: "Error loading jokes"
 			});
-			console.log(this.findDOMNode('.ctaButton'));
 		});
 	}
 	generateText(){

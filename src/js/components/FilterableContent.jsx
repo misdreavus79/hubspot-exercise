@@ -84,11 +84,12 @@ class FilterableContent extends React.Component {
 	}
 	filterBySearch(event){		
 		if(event.keyCode === 13 || event.key === "Enter"){
-			let filtered = this.props.listings.filter(
-				(single) => {
-					return single.title.toLowerCase().includes(event.target.value.toLowerCase());
-				}
-			);
+			let filtered = this.props.filter.byObjectValue({
+				target: this.props.listings,
+				property: 'title',
+				value: event.target.value,
+				shouldInclude: true
+			});
 			this.setState({
 				listings: filtered
 			});
