@@ -1,13 +1,21 @@
 import React from "react";
-import Listing from "./Listing";
+import Listings from "./Listings";
+import Genres from "./Genres";
+import Years from "./Years";
+import Search from "./Search";
+import MovieFilter from "./MovieFilter";
+import BookFilter from "./BookFilter";
+import ClearFilters from "./ClearFilters";
 
 class FilterableContent extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			listings: this.props.listings,
+			genres: this.props.genres,
+			years: this.props.years,
 			search: '',
-			checkboxes: []
+			checkboxes: [],
 		};
 		//event bindings
 		this.updateCheckboxes = this.updateCheckboxes.bind(this);
@@ -27,13 +35,9 @@ class FilterableContent extends React.Component {
 			return 0;
 		});
 		this.setState({
-			listings: nextProps.listings,
-			genres: nextProps.genres.map((single) => {	
-						return <label key={single}><input type="checkbox" name="genre" value={single} onChange={this.updateCheckboxes} /> {single}</label>
-					}),
-			years: nextProps.years.map((single) => {	
-						return <label key={single}><input type="checkbox" name="year" value={single} onChange={this.updateCheckboxes} /> {single}</label>
-					})	
+			listings: nextProps.listings,	
+			genres: nextProps.genres,
+			years: nextProps.years
 		});
 	}
 	updateSearchField(event){
@@ -107,43 +111,17 @@ class FilterableContent extends React.Component {
 		return(
 	        <section className="filterable-content">
 				<div className="filters group">
-					<div className="genres">
-						<span className="dropdown">Genre</span>
-						<div className="checkboxes">
-							{this.state.genres}
-						</div>
-					</div>
-					<div className="years">
-						<span className="dropdown">Year</span>
-						<div className="checkboxes">
-							{this.state.years}
-						</div>
-					</div>
-					<div className="search">
-						<input type="text" value={this.state.search} onChange={this.updateSearchField} onKeyPress={this.filterBySearch} placeholder="Press Enter to search" />
-					</div>
+					<Genres genres={this.state.genres} update={this.updateCheckboxes} />
+					<Years years={this.state.years} update={this.updateCheckboxes} />
+					<Search search={this.state.search} update={this.updateSearchField} filter={this.filterBySearch} />
 				</div>
 				<div className="filters group">
-					<div className="radio">
-						<input type="radio" name="choice" value="movie" onClick={this.filterByMediaType} />
-						<label>Movies</label>
-					</div>
-					<div className="radio">
-						<input type="radio" name="choice" value="book" onClick={this.filterByMediaType} />
-						<label>Books</label>
-					</div>
-					<div className="clear">
-						<a href="#" onClick={this.clearFilters}>Clear filters</a>
-					</div>
+					<MovieFilter filter={this.filterByMediaType} />
+					<BookFilter filter={this.filterByMediaType} />
+					<ClearFilters clear={this.clearFilters} />
 				</div>
 				<div className="results">
-					<ul>
-					{
-						this.state.listings.map((single) => {
-							return <Listing item={single} key={single.title} />
-						})
-					}
-					</ul>
+					<Listings listings={this.state.listings} />
 				</div>
 			</section>
 		)
