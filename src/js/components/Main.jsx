@@ -10,9 +10,6 @@ class Main extends React.Component {
 	constructor(){
 		super();
 		this.state = {
-			listings: [],
-			genres: [],
-			years: [],
 			quote: `Polaroid bushwick microdosing tattooed. 
 					Cornhole single-origin coffee bycicle rights lumbersexual, 
 					pour-over intelligentsia bahn mi ethical selfies schlitz raw
@@ -20,11 +17,9 @@ class Main extends React.Component {
 					tilde disrupt kinfolk cray health goth +1.`,
 			citation: "Indiana Jones, Archaeologist"
 		}
-		this.filter = new Filter();
-		this.ajax = new Ajax();
 	}
 	componentWillMount(){
-		this.ajax.getJson(this.props.url).then((response) => {
+		this.props.ajax.getJson(this.props.url).then((response) => {
 			this.setState({
 				listings: response.media
 			});
@@ -45,8 +40,8 @@ class Main extends React.Component {
 		});
 
 		//remove duplicates and sort
-		years = this.filter.removeDuplicates(years).sort(); 
-		genres = this.filter.removeDuplicates(genres).sort(); 
+		years = this.props.filter.removeDuplicates(years).sort(); 
+		genres = this.props.filter.removeDuplicates(genres).sort(); 
 
 		this.setState({
 			genres: genres,
@@ -59,12 +54,17 @@ class Main extends React.Component {
 			   <h2>Sample 1 - Static Text</h2>
 			   <Testimonial quote={this.state.quote} citation={this.state.citation} />
 			   <h2>Sample 2 - Dynamic Text</h2>
-			   <CTA ajax={this.ajax} filter={this.filter} />
+			   <CTA ajax={this.props.ajax} filter={this.props.filter} />
 			   <h2>Sample 3 - Filterable Content</h2>
-		       <FilterableContent listings={this.state.listings} genres={this.state.genres} years={this.state.years} filter={this.filter} />
+		       <FilterableContent listings={this.state.listings} genres={this.state.genres} years={this.state.years} filter={this.props.filter} />
 		    </div>
 		)
 	}
 }
 
-ReactDOM.render(<Main url="js/data/data.json" />, document.getElementById('app'));
+Main.defaultProps = {
+	filter : new Filter(),
+	ajax : new Ajax()
+}
+
+ReactDOM.render(<Main url="https://storage.googleapis.com/sca/random/data.json" />, document.getElementById('app'));

@@ -11,12 +11,10 @@ class FilterableContent extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			listings: this.props.listings,
-			genres: this.props.genres,
-			years: this.props.years,
 			search: '',
 			checkboxes: [],
 		};
+
 		//event bindings
 		this.updateCheckboxes = this.updateCheckboxes.bind(this);
 		this.filterBySearch = this.filterBySearch.bind(this);
@@ -25,20 +23,30 @@ class FilterableContent extends React.Component {
 		this.clearFilters = this.clearFilters.bind(this);
 	}
 	componentWillReceiveProps(nextProps){
-		nextProps.listings.sort((a,b) => { //sort media listings by title
-			if (a.title < b.title){
-				return -1;
-			}
-			if (a.title > b.title){
-				return 1;
-			}
-			return 0;
-		});
-		this.setState({
-			listings: nextProps.listings,	
-			genres: nextProps.genres,
-			years: nextProps.years
-		});
+		if(nextProps.listings !== undefined){
+			nextProps.listings.sort((a,b) => { //sort media listings by title
+				if (a.title < b.title){
+					return -1;
+				}
+				if (a.title > b.title){
+					return 1;
+				}
+				return 0;
+			});
+			this.setState({
+				listings: nextProps.listings,	
+			});
+		}
+		if(nextProps.genres !== undefined){
+			this.setState({
+				genres: nextProps.genres
+			});
+		}
+		if(nextProps.years !== undefined){
+			this.setState({
+				years: nextProps.years
+			});
+		}
 	}
 	updateSearchField(event){
 		this.setState({
@@ -111,8 +119,12 @@ class FilterableContent extends React.Component {
 		return(
 	        <section className="filterable-content">
 				<div className="filters group">
-					<Genres genres={this.state.genres} update={this.updateCheckboxes} />
-					<Years years={this.state.years} update={this.updateCheckboxes} />
+					{
+						this.state.genres !== undefined ? <Genres genres={this.state.genres} update={this.updateCheckboxes} /> : <em>Not Yet</em>
+					}
+					{
+						this.state.years !== undefined ? <Years years={this.state.years} update={this.updateCheckboxes} /> : <em>Not Yet</em>
+					}
 					<Search search={this.state.search} update={this.updateSearchField} filter={this.filterBySearch} />
 				</div>
 				<div className="filters group">
@@ -121,7 +133,9 @@ class FilterableContent extends React.Component {
 					<ClearFilters clear={this.clearFilters} />
 				</div>
 				<div className="results">
-					<Listings listings={this.state.listings} />
+					{
+						this.state.listings !== undefined ? <Listings listings={this.state.listings} /> : <em>Not Yet</em>
+					}
 				</div>
 			</section>
 		)
