@@ -12,7 +12,7 @@ const Listings = ({listings}) =>
 		{
 			listings.map((single) => {
 				return <Listing item={single} key={single.title} />
-			})
+			});
 		}
 	</ul>
 

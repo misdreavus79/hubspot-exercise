@@ -9,30 +9,14 @@
   "author": "Eliezer Moreta-Feliz",
   "license": "ISC",
   "private": true,
-  "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.6.5",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-react": "^6.11.1",
-    "babelify": "^7.2.0",
-    "browser-sync": "^2.11.1",
-    "browserify": "^13.0.0",
-    "del": "^2.2.0",
-    "ejs": "^2.4.1",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-cssnano": "^2.1.1",
-    "gulp-data": "^1.2.1",
-    "gulp-ejs": "^2.1.1",
-    "gulp-sass": "^2.2.0",
-    "gulp-uglify": "^1.5.3",
-    "jquery": "^3.1.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
-  },
   "dependencies": {
-    "express": "^4.14.0",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "@babel/core": "^7.1.2",
+    "babel-loader": "^8.0.4",
+    "eslint": "^5.8.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "webpack": "^4.23.1",
+    "webpack-dev-server": "^3.1.10"
   }
 }
